@@ -129,3 +129,43 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Responsividade para Angular Material Dialog */
+@media (max-width: 600px) {
+  .mat-mdc-dialog-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+  .mat-mdc-dialog-content {
+    padding: 8px !important;
+  }
+}
+
+/* Dialog full screen e rolagem para mobile */
+.mat-mdc-dialog-container.full-screen-dialog {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.mat-mdc-dialog-container.full-screen-dialog .mat-mdc-dialog-content {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  max-height: calc(100vh - 120px) !important;
+  padding: 16px !important;
+}
+
+.mat-mdc-dialog-container.full-screen-dialog .mat-mdc-dialog-actions {
+  flex-shrink: 0 !important;
+  padding: 16px !important;
+}

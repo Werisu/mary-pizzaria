@@ -300,9 +300,12 @@ export class MenuComponent implements OnInit {
   }
 
   openPizzaDetail(pizza: Pizza): void {
+    const isMobile = window.innerWidth <= 600;
     const dialogRef = this.dialog.open(PizzaDetailComponent, {
-      width: '90vw',
-      maxWidth: '500px',
+      width: isMobile ? '100vw' : '90vw',
+      maxWidth: isMobile ? '100vw' : '500px',
+      height: isMobile ? '100vh' : undefined,
+      panelClass: isMobile ? 'full-screen-dialog' : '',
       data: { pizza },
     });
   }

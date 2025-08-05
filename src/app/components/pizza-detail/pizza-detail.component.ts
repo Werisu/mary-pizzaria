@@ -44,138 +44,141 @@ import { PizzaService } from '../../services/pizza.service';
         </button>
       </div>
 
-      <div class="pizza-image">
-        <img [src]="data.pizza.image" [alt]="data.pizza.name" />
-      </div>
-
-      <div class="pizza-info">
-        <p class="description">{{ data.pizza.description }}</p>
-
-        <div class="ingredients">
-          <h4>Ingredientes:</h4>
-          <div class="ingredients-grid">
-            <mat-chip
-              *ngFor="let ingredient of data.pizza.ingredients"
-              class="ingredient-chip"
-            >
-              {{ ingredient }}
-            </mat-chip>
-          </div>
+      <mat-dialog-content class="dialog-content">
+        <div class="pizza-image">
+          <img [src]="data.pizza.image" [alt]="data.pizza.name" />
         </div>
 
-        <div class="customization">
-          <h4>Personalizar Pedido</h4>
+        <div class="pizza-info">
+          <p class="description">{{ data.pizza.description }}</p>
 
-          <!-- Tamanho -->
-          <div class="size-section">
-            <h5>Tamanho:</h5>
-            <mat-radio-group
-              [(ngModel)]="selectedSize"
-              (change)="updatePrice()"
-            >
-              <mat-radio-button value="pequena"
-                >Pequena (R$
-                {{ (data.pizza.price * 0.8).toFixed(2) }})</mat-radio-button
+          <div class="ingredients">
+            <h4>Ingredientes:</h4>
+            <div class="ingredients-grid">
+              <mat-chip
+                *ngFor="let ingredient of data.pizza.ingredients"
+                class="ingredient-chip"
               >
-              <mat-radio-button value="media"
-                >Média (R$ {{ data.pizza.price.toFixed(2) }})</mat-radio-button
-              >
-              <mat-radio-button value="grande"
-                >Grande (R$
-                {{ (data.pizza.price * 1.3).toFixed(2) }})</mat-radio-button
-              >
-            </mat-radio-group>
-          </div>
-
-          <!-- Quantidade -->
-          <div class="quantity-section">
-            <h5>Quantidade:</h5>
-            <div class="quantity-controls">
-              <button
-                mat-icon-button
-                (click)="decreaseQuantity()"
-                [disabled]="quantity <= 1"
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
-              <span class="quantity">{{ quantity }}</span>
-              <button mat-icon-button (click)="increaseQuantity()">
-                <mat-icon>add</mat-icon>
-              </button>
+                {{ ingredient }}
+              </mat-chip>
             </div>
           </div>
 
-          <!-- Segundo Sabor -->
-          <div class="second-flavor-section">
-            <h5>Adicionar segundo sabor?</h5>
-            <mat-checkbox
-              [(ngModel)]="hasSecondFlavor"
-              (change)="onSecondFlavorChange()"
-            >
-              Quero pizza de dois sabores
-            </mat-checkbox>
+          <div class="customization">
+            <h4>Personalizar Pedido</h4>
 
-            <div *ngIf="hasSecondFlavor" class="second-flavor-selector">
-              <mat-form-field appearance="outline">
-                <mat-label>Escolha o segundo sabor</mat-label>
-                <mat-select
-                  [(ngModel)]="selectedSecondFlavor"
-                  (selectionChange)="updatePrice()"
+            <!-- Tamanho -->
+            <div class="size-section">
+              <h5>Tamanho:</h5>
+              <mat-radio-group
+                [(ngModel)]="selectedSize"
+                (change)="updatePrice()"
+              >
+                <mat-radio-button value="pequena"
+                  >Pequena (R$
+                  {{ (data.pizza.price * 0.8).toFixed(2) }})</mat-radio-button
                 >
-                  <mat-option
-                    *ngFor="let pizza of availablePizzas"
-                    [value]="pizza"
+                <mat-radio-button value="media"
+                  >Média (R$
+                  {{ data.pizza.price.toFixed(2) }})</mat-radio-button
+                >
+                <mat-radio-button value="grande"
+                  >Grande (R$
+                  {{ (data.pizza.price * 1.3).toFixed(2) }})</mat-radio-button
+                >
+              </mat-radio-group>
+            </div>
+
+            <!-- Quantidade -->
+            <div class="quantity-section">
+              <h5>Quantidade:</h5>
+              <div class="quantity-controls">
+                <button
+                  mat-icon-button
+                  (click)="decreaseQuantity()"
+                  [disabled]="quantity <= 1"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span class="quantity">{{ quantity }}</span>
+                <button mat-icon-button (click)="increaseQuantity()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- Segundo Sabor -->
+            <div class="second-flavor-section">
+              <h5>Adicionar segundo sabor?</h5>
+              <mat-checkbox
+                [(ngModel)]="hasSecondFlavor"
+                (change)="onSecondFlavorChange()"
+              >
+                Quero pizza de dois sabores
+              </mat-checkbox>
+
+              <div *ngIf="hasSecondFlavor" class="second-flavor-selector">
+                <mat-form-field appearance="outline">
+                  <mat-label>Escolha o segundo sabor</mat-label>
+                  <mat-select
+                    [(ngModel)]="selectedSecondFlavor"
+                    (selectionChange)="updatePrice()"
                   >
-                    {{ pizza.name }} - R$ {{ pizza.price.toFixed(2) }}
-                  </mat-option>
-                </mat-select>
+                    <mat-option
+                      *ngFor="let pizza of availablePizzas"
+                      [value]="pizza"
+                    >
+                      {{ pizza.name }} - R$ {{ pizza.price.toFixed(2) }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Observações -->
+            <div class="observations-section">
+              <h5>Observações:</h5>
+              <mat-form-field appearance="outline" class="full-width">
+                <textarea
+                  matInput
+                  [(ngModel)]="specialInstructions"
+                  placeholder="Ex: Sem cebola, borda recheada, etc."
+                  rows="3"
+                ></textarea>
               </mat-form-field>
             </div>
           </div>
 
-          <!-- Observações -->
-          <div class="observations-section">
-            <h5>Observações:</h5>
-            <mat-form-field appearance="outline" class="full-width">
-              <textarea
-                matInput
-                [(ngModel)]="specialInstructions"
-                placeholder="Ex: Sem cebola, borda recheada, etc."
-                rows="3"
-              ></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="price-section">
-          <div class="price-breakdown">
-            <div class="price-item">
-              <span>{{ data.pizza.name }}</span>
-              <span
-                >R$ {{ (data.pizza.price * sizeMultiplier).toFixed(2) }}</span
+          <div class="price-section">
+            <div class="price-breakdown">
+              <div class="price-item">
+                <span>{{ data.pizza.name }}</span>
+                <span
+                  >R$ {{ (data.pizza.price * sizeMultiplier).toFixed(2) }}</span
+                >
+              </div>
+              <div
+                *ngIf="hasSecondFlavor && selectedSecondFlavor"
+                class="price-item"
               >
-            </div>
-            <div
-              *ngIf="hasSecondFlavor && selectedSecondFlavor"
-              class="price-item"
-            >
-              <span>{{ selectedSecondFlavor.name }}</span>
-              <span
-                >R$
-                {{
-                  (selectedSecondFlavor.price * sizeMultiplier).toFixed(2)
-                }}</span
-              >
-            </div>
-            <div class="price-item total">
-              <span>Total</span>
-              <span>R$ {{ totalPrice.toFixed(2) }}</span>
+                <span>{{ selectedSecondFlavor.name }}</span>
+                <span
+                  >R$
+                  {{
+                    (selectedSecondFlavor.price * sizeMultiplier).toFixed(2)
+                  }}</span
+                >
+              </div>
+              <div class="price-item total">
+                <span>Total</span>
+                <span>R$ {{ totalPrice.toFixed(2) }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </mat-dialog-content>
 
-      <div class="actions">
+      <mat-dialog-actions class="dialog-actions">
         <button
           mat-raised-button
           color="primary"
@@ -184,7 +187,7 @@ import { PizzaService } from '../../services/pizza.service';
         >
           Adicionar ao Carrinho - R$ {{ totalPrice.toFixed(2) }}
         </button>
-      </div>
+      </mat-dialog-actions>
     </div>
   `,
   styles: [
@@ -194,6 +197,9 @@ import { PizzaService } from '../../services/pizza.service';
         background: white;
         border-radius: 12px;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
 
       .header {
@@ -203,11 +209,18 @@ import { PizzaService } from '../../services/pizza.service';
         padding: 16px;
         background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         color: white;
+        flex-shrink: 0;
       }
 
       .header h2 {
         margin: 0;
         font-size: 1.3rem;
+      }
+
+      .dialog-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0;
       }
 
       .pizza-image {
@@ -326,9 +339,11 @@ import { PizzaService } from '../../services/pizza.service';
         margin-top: 8px;
       }
 
-      .actions {
+      .dialog-actions {
         padding: 16px 20px;
         background: #f8f9fa;
+        margin: 0;
+        flex-shrink: 0;
       }
 
       .add-button {
