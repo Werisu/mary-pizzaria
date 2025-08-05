@@ -38,22 +38,41 @@ import { PizzaService } from '../../services/pizza.service';
   template: `
     <div class="pizza-detail">
       <div class="header">
-        <h2>{{ data.pizza.name }}</h2>
-        <button mat-icon-button (click)="close()">
-          <mat-icon>close</mat-icon>
-        </button>
+        <div class="header-content">
+          <div class="pizza-info">
+            <h2>{{ data.pizza.name }}</h2>
+            <p class="pizza-category">
+              {{
+                data.pizza.category === 'salgada'
+                  ? 'Pizza Salgada'
+                  : 'Pizza Doce'
+              }}
+            </p>
+          </div>
+          <button mat-icon-button (click)="close()" class="close-button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
       </div>
 
       <mat-dialog-content class="dialog-content">
         <div class="pizza-image">
           <img [src]="data.pizza.image" [alt]="data.pizza.name" />
+          <div class="image-overlay">
+            <div class="price-badge">
+              <span class="price-label">A partir de</span>
+              <span class="price-value"
+                >R$ {{ data.pizza.price.toFixed(2) }}</span
+              >
+            </div>
+          </div>
         </div>
 
-        <div class="pizza-info">
+        <div class="pizza-info-content">
           <p class="description">{{ data.pizza.description }}</p>
 
-          <div class="ingredients">
-            <h4>Ingredientes:</h4>
+          <div class="ingredients-section">
+            <h4>Ingredientes</h4>
             <div class="ingredients-grid">
               <mat-chip
                 *ngFor="let ingredient of data.pizza.ingredients"
@@ -64,44 +83,62 @@ import { PizzaService } from '../../services/pizza.service';
             </div>
           </div>
 
-          <div class="customization">
+          <div class="customization-section">
             <h4>Personalizar Pedido</h4>
 
             <!-- Tamanho -->
             <div class="size-section">
-              <h5>Tamanho:</h5>
+              <h5>Tamanho</h5>
               <mat-radio-group
                 [(ngModel)]="selectedSize"
                 (change)="updatePrice()"
+                class="size-options"
               >
-                <mat-radio-button value="pequena"
-                  >Pequena (R$
-                  {{ (data.pizza.price * 0.8).toFixed(2) }})</mat-radio-button
-                >
-                <mat-radio-button value="media"
-                  >Média (R$
-                  {{ data.pizza.price.toFixed(2) }})</mat-radio-button
-                >
-                <mat-radio-button value="grande"
-                  >Grande (R$
-                  {{ (data.pizza.price * 1.3).toFixed(2) }})</mat-radio-button
-                >
+                <mat-radio-button value="pequena" class="size-option">
+                  <div class="size-content">
+                    <span class="size-name">Pequena</span>
+                    <span class="size-price"
+                      >R$ {{ (data.pizza.price * 0.8).toFixed(2) }}</span
+                    >
+                  </div>
+                </mat-radio-button>
+                <mat-radio-button value="media" class="size-option">
+                  <div class="size-content">
+                    <span class="size-name">Média</span>
+                    <span class="size-price"
+                      >R$ {{ data.pizza.price.toFixed(2) }}</span
+                    >
+                  </div>
+                </mat-radio-button>
+                <mat-radio-button value="grande" class="size-option">
+                  <div class="size-content">
+                    <span class="size-name">Grande</span>
+                    <span class="size-price"
+                      >R$ {{ (data.pizza.price * 1.3).toFixed(2) }}</span
+                    >
+                  </div>
+                </mat-radio-button>
               </mat-radio-group>
             </div>
 
             <!-- Quantidade -->
             <div class="quantity-section">
-              <h5>Quantidade:</h5>
+              <h5>Quantidade</h5>
               <div class="quantity-controls">
                 <button
                   mat-icon-button
                   (click)="decreaseQuantity()"
                   [disabled]="quantity <= 1"
+                  class="quantity-btn"
                 >
                   <mat-icon>remove</mat-icon>
                 </button>
                 <span class="quantity">{{ quantity }}</span>
-                <button mat-icon-button (click)="increaseQuantity()">
+                <button
+                  mat-icon-button
+                  (click)="increaseQuantity()"
+                  class="quantity-btn"
+                >
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
@@ -109,10 +146,11 @@ import { PizzaService } from '../../services/pizza.service';
 
             <!-- Segundo Sabor -->
             <div class="second-flavor-section">
-              <h5>Adicionar segundo sabor?</h5>
+              <h5>Segundo Sabor</h5>
               <mat-checkbox
                 [(ngModel)]="hasSecondFlavor"
                 (change)="onSecondFlavorChange()"
+                class="second-flavor-checkbox"
               >
                 Quero pizza de dois sabores
               </mat-checkbox>
@@ -137,7 +175,7 @@ import { PizzaService } from '../../services/pizza.service';
 
             <!-- Observações -->
             <div class="observations-section">
-              <h5>Observações:</h5>
+              <h5>Observações</h5>
               <mat-form-field appearance="outline" class="full-width">
                 <textarea
                   matInput
@@ -149,10 +187,11 @@ import { PizzaService } from '../../services/pizza.service';
             </div>
           </div>
 
-          <div class="price-section">
-            <div class="price-breakdown">
+          <div class="price-breakdown">
+            <h4>Resumo do Pedido</h4>
+            <div class="price-items">
               <div class="price-item">
-                <span>{{ data.pizza.name }}</span>
+                <span>{{ data.pizza.name }} ({{ selectedSize }})</span>
                 <span
                   >R$ {{ (data.pizza.price * sizeMultiplier).toFixed(2) }}</span
                 >
@@ -161,7 +200,9 @@ import { PizzaService } from '../../services/pizza.service';
                 *ngIf="hasSecondFlavor && selectedSecondFlavor"
                 class="price-item"
               >
-                <span>{{ selectedSecondFlavor.name }}</span>
+                <span
+                  >{{ selectedSecondFlavor.name }} ({{ selectedSize }})</span
+                >
                 <span
                   >R$
                   {{
@@ -170,7 +211,7 @@ import { PizzaService } from '../../services/pizza.service';
                 >
               </div>
               <div class="price-item total">
-                <span>Total</span>
+                <span>Total ({{ quantity }}x)</span>
                 <span>R$ {{ totalPrice.toFixed(2) }}</span>
               </div>
             </div>
@@ -185,6 +226,7 @@ import { PizzaService } from '../../services/pizza.service';
           (click)="addToCart()"
           class="add-button"
         >
+          <mat-icon>shopping_cart</mat-icon>
           Adicionar ao Carrinho - R$ {{ totalPrice.toFixed(2) }}
         </button>
       </mat-dialog-actions>
@@ -194,8 +236,8 @@ import { PizzaService } from '../../services/pizza.service';
     `
       .pizza-detail {
         max-width: 100%;
-        background: white;
-        border-radius: 12px;
+        background: var(--bg-primary);
+        border-radius: var(--radius-xl);
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -203,18 +245,47 @@ import { PizzaService } from '../../services/pizza.service';
       }
 
       .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px;
-        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 20px;
         color: white;
         flex-shrink: 0;
       }
 
-      .header h2 {
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .pizza-info h2 {
         margin: 0;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+
+      .pizza-category {
+        margin: 4px 0 0;
+        font-size: 0.875rem;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+
+      .close-button {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-full);
+        backdrop-filter: blur(10px);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .close-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
       }
 
       .dialog-content {
@@ -224,6 +295,7 @@ import { PizzaService } from '../../services/pizza.service';
       }
 
       .pizza-image {
+        position: relative;
         width: 100%;
         height: 250px;
         overflow: hidden;
@@ -233,39 +305,74 @@ import { PizzaService } from '../../services/pizza.service';
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      .pizza-info {
-        padding: 20px;
+      .image-overlay {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+      }
+
+      .price-badge {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: var(--radius-full);
+        padding: 8px 16px;
+        color: white;
+        text-align: center;
+      }
+
+      .price-label {
+        display: block;
+        font-size: 0.75rem;
+        opacity: 0.8;
+      }
+
+      .price-value {
+        display: block;
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
+
+      .pizza-info-content {
+        padding: 24px;
       }
 
       .description {
-        color: #666;
-        line-height: 1.5;
-        margin-bottom: 20px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 24px;
+        font-size: 1rem;
       }
 
-      .ingredients h4 {
-        margin-bottom: 12px;
-        color: #333;
+      .ingredients-section,
+      .customization-section,
+      .price-breakdown {
+        margin-bottom: 24px;
+      }
+
+      .ingredients-section h4,
+      .customization-section h4,
+      .price-breakdown h4 {
+        margin-bottom: 16px;
+        color: var(--text-primary);
+        font-size: 1.125rem;
+        font-weight: 600;
       }
 
       .ingredients-grid {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-bottom: 20px;
       }
 
       .ingredient-chip {
-        background: #f0f0f0;
-        color: #666;
-        font-size: 0.9rem;
-      }
-
-      .customization h4 {
-        margin-bottom: 16px;
-        color: #333;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        font-size: 0.875rem;
+        height: 28px;
       }
 
       .size-section,
@@ -279,28 +386,82 @@ import { PizzaService } from '../../services/pizza.service';
       .quantity-section h5,
       .second-flavor-section h5,
       .observations-section h5 {
-        margin-bottom: 8px;
-        color: #555;
+        margin-bottom: 12px;
+        color: var(--text-primary);
         font-size: 1rem;
+        font-weight: 600;
       }
 
-      mat-radio-group {
+      .size-options {
         display: flex;
         flex-direction: column;
         gap: 8px;
+      }
+
+      .size-option {
+        border-radius: var(--radius-md);
+        padding: 12px 16px;
+        margin: 0;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .size-option:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--primary-color);
+      }
+
+      .size-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .size-name {
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .size-price {
+        font-weight: 600;
+        color: var(--primary-color);
       }
 
       .quantity-controls {
         display: flex;
         align-items: center;
         gap: 16px;
+        justify-content: center;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        border: 1px solid var(--border-color);
+      }
+
+      .quantity-btn {
+        color: var(--text-secondary);
+        background: var(--bg-primary);
+        border-radius: var(--radius-sm);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .quantity-btn:hover:not(:disabled) {
+        background: var(--primary-color);
+        color: white;
       }
 
       .quantity {
-        font-size: 1.2rem;
-        font-weight: bold;
-        min-width: 30px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        min-width: 40px;
         text-align: center;
+      }
+
+      .second-flavor-checkbox {
+        margin-bottom: 12px;
       }
 
       .second-flavor-selector {
@@ -311,63 +472,91 @@ import { PizzaService } from '../../services/pizza.service';
         width: 100%;
       }
 
-      .price-section {
-        margin-top: 24px;
-        padding: 16px;
-        background: #f8f9fa;
-        border-radius: 8px;
+      .price-breakdown {
+        background: var(--bg-secondary);
+        border-radius: var(--radius-lg);
+        padding: 20px;
+        border: 1px solid var(--border-color);
       }
 
-      .price-breakdown {
+      .price-items {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
       }
 
       .price-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 8px 0;
       }
 
       .price-item.total {
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: #ff6b6b;
-        border-top: 1px solid #ddd;
-        padding-top: 8px;
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--primary-color);
+        border-top: 1px solid var(--border-color);
+        padding-top: 12px;
         margin-top: 8px;
       }
 
       .dialog-actions {
-        padding: 16px 20px;
-        background: #f8f9fa;
+        padding: 20px 24px;
+        background: var(--bg-secondary);
         margin: 0;
         flex-shrink: 0;
+        border-top: 1px solid var(--border-color);
       }
 
       .add-button {
         width: 100%;
-        padding: 12px;
-        font-size: 1.1rem;
+        padding: 16px;
+        font-size: 1.125rem;
+        font-weight: 600;
+        background: var(--primary-color);
+        color: white;
+        border-radius: var(--radius-md);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .add-button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
       }
 
       /* Mobile First */
       @media (max-width: 768px) {
-        .pizza-info {
-          padding: 16px;
+        .pizza-info-content {
+          padding: 20px;
         }
 
         .pizza-image {
           height: 200px;
         }
 
-        .header h2 {
-          font-size: 1.2rem;
+        .header-content h2 {
+          font-size: 1.25rem;
         }
 
         .add-button {
           font-size: 1rem;
+          padding: 14px;
+        }
+
+        .size-content {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+
+        .quantity-controls {
+          padding: 8px;
         }
       }
     `,
