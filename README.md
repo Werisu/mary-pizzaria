@@ -1,101 +1,219 @@
-# MaryPizzaria
+# 🍕 Mary Pizzaria - Sistema de Delivery
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Um aplicativo Angular completo de delivery para pizzaria com metodologia **Mobile First** e suporte a pizzas de **dois sabores**.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## ✨ Funcionalidades
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+### 🎯 Principais
 
-## Run tasks
+- **Menu de Pizzas**: Visualização de pizzas salgadas e doces
+- **Pizzas de Dois Sabores**: Opção de escolher dois sabores diferentes
+- **Carrinho de Compras**: Gerenciamento de itens e quantidades
+- **Checkout Completo**: Formulário de dados do cliente e pagamento
+- **Confirmação de Pedido**: Tela de confirmação com detalhes
 
-To run the dev server for your app, use:
+### 📱 Mobile First
 
-```sh
-npx nx serve mary-pizzaria
+- Design responsivo otimizado para dispositivos móveis
+- Interface intuitiva e fácil de usar
+- Navegação fluida entre telas
+- Componentes adaptáveis a diferentes tamanhos de tela
+
+### 🍕 Sistema de Pizzas
+
+- **Pizzas Salgadas**: Margherita, Pepperoni, Quatro Queijos, Calabresa, Frango com Catupiry, Portuguesa
+- **Pizzas Doces**: Chocolate, Banana com Canela
+- **Tamanhos**: Pequena (80%), Média (100%), Grande (130%)
+- **Personalização**: Observações especiais, quantidade, segundo sabor
+
+### 💳 Sistema de Pagamento
+
+- **Dinheiro**: Com opção de troco
+- **Cartão**: Pagamento com cartão
+- **PIX**: Pagamento via PIX
+
+### 🚚 Entrega
+
+- **Taxa de Entrega**: R$ 5,00 (grátis para pedidos acima de R$ 50,00)
+- **Tempo Estimado**: 30-45 minutos
+- **Rastreamento**: Status do pedido em tempo real
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Angular 20**: Framework principal
+- **Angular Material**: Componentes de UI
+- **TypeScript**: Linguagem de programação
+- **RxJS**: Programação reativa
+- **CSS3**: Estilos e animações
+- **HTML5**: Estrutura semântica
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── menu/                 # Menu principal de pizzas
+│   │   ├── cart/                 # Carrinho de compras
+│   │   ├── checkout/             # Finalização do pedido
+│   │   ├── order-confirmation/   # Confirmação do pedido
+│   │   └── pizza-detail/         # Detalhes da pizza
+│   ├── models/
+│   │   └── pizza.model.ts        # Interfaces e tipos
+│   ├── services/
+│   │   └── pizza.service.ts      # Lógica de negócio
+│   ├── app.routes.ts             # Configuração de rotas
+│   ├── app.config.ts             # Configuração do app
+│   └── app.ts                    # Componente principal
+├── assets/
+│   └── images/                   # Imagens do projeto
+└── styles.scss                   # Estilos globais
 ```
 
-To create a production bundle:
+## 🚀 Como Executar
 
-```sh
-npx nx build mary-pizzaria
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+
+### Instalação
+
+```bash
+# Clone o repositório
+git clone [url-do-repositorio]
+cd mary-pizzaria
+
+# Instale as dependências
+npm install
+
+# Execute o projeto
+npm start
 ```
 
-To see all available targets to run for a project, run:
+### Comandos Disponíveis
 
-```sh
-npx nx show project mary-pizzaria
+```bash
+# Desenvolvimento
+npm start              # Inicia o servidor de desenvolvimento
+npm run build          # Compila para produção
+npm run test           # Executa os testes
+npm run lint           # Verifica o código
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## 📱 Funcionalidades Detalhadas
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 1. Menu de Pizzas
 
-## Add new projects
+- **Abas**: Separação entre pizzas salgadas e doces
+- **Cards**: Exibição visual com imagem, nome, descrição e preço
+- **Ingredientes**: Chips mostrando os principais ingredientes
+- **Adicionar**: Botão para adicionar ao carrinho
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+### 2. Detalhes da Pizza
 
-Use the plugin's generator to create new projects.
+- **Modal**: Abre ao clicar em uma pizza
+- **Personalização**: Tamanho, quantidade, segundo sabor
+- **Observações**: Campo para instruções especiais
+- **Preço Dinâmico**: Cálculo automático baseado nas escolhas
 
-To generate a new application, use:
+### 3. Carrinho de Compras
 
-```sh
-npx nx g @nx/angular:app demo
+- **Lista de Itens**: Visualização de todos os itens adicionados
+- **Remoção**: Botão para remover itens
+- **Resumo**: Subtotal, taxa de entrega e total
+- **Frete Grátis**: Informação sobre pedidos acima de R$ 50,00
+
+### 4. Checkout
+
+- **Dados do Cliente**: Nome, telefone e endereço
+- **Forma de Pagamento**: Dinheiro, cartão ou PIX
+- **Troco**: Campo para troco quando pagamento em dinheiro
+- **Resumo do Pedido**: Confirmação final dos itens
+
+### 5. Confirmação
+
+- **Detalhes Completos**: Informações do pedido e cliente
+- **Status**: Indicação do status atual
+- **Tempo de Entrega**: Estimativa de entrega
+- **Ações**: Fazer novo pedido ou ver menu
+
+## 🎨 Design System
+
+### Cores
+
+- **Primária**: `#ff6b6b` (Vermelho pizza)
+- **Secundária**: `#ee5a24` (Laranja)
+- **Sucesso**: `#4caf50` (Verde)
+- **Aviso**: `#ffd700` (Amarelo para pizzas doces)
+
+### Tipografia
+
+- **Família**: Roboto, Helvetica Neue, sans-serif
+- **Tamanhos**: 14px (mobile), 16px (desktop)
+
+### Componentes
+
+- **Cards**: Bordas arredondadas (12px)
+- **Botões**: Bordas arredondadas (8px)
+- **Sombras**: Suaves para profundidade
+
+## 📊 Fluxo do Usuário
+
+1. **Entrada**: Menu principal com pizzas
+2. **Seleção**: Escolha da pizza e personalização
+3. **Carrinho**: Adição e revisão dos itens
+4. **Checkout**: Preenchimento dos dados
+5. **Confirmação**: Finalização e acompanhamento
+
+## 🔧 Configurações
+
+### Angular Material
+
+O projeto utiliza Angular Material para componentes de UI, garantindo:
+
+- Acessibilidade
+- Design consistente
+- Responsividade
+- Animações suaves
+
+### Mobile First
+
+- Breakpoints otimizados para mobile
+- Touch-friendly interfaces
+- Navegação por gestos
+- Performance otimizada
+
+## 🚀 Deploy
+
+### Produção
+
+```bash
+npm run build
 ```
 
-To generate a new library, use:
+### Servidor Local
 
-```sh
-npx nx g @nx/angular:lib mylib
+```bash
+npm start
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 📝 Licença
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Este projeto está sob a licença MIT.
 
-## Set up CI!
+## 👥 Contribuição
 
-### Step 1
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Push para a branch
+5. Abra um Pull Request
 
-To connect to Nx Cloud, run the following command:
+## 📞 Suporte
 
-```sh
-npx nx connect
-```
+Para dúvidas ou sugestões, entre em contato através dos canais disponíveis.
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+---
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Desenvolvido com ❤️ para a Mary Pizzaria**
