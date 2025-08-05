@@ -12,8 +12,7 @@ export class PizzaService {
       name: 'Margherita',
       description: 'Molho de tomate, mussarela, manjericão fresco',
       price: 25.0,
-      image:
-        'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Margherita',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Margherita',
       ingredients: ['Molho de tomate', 'Mussarela', 'Manjericão'],
       category: 'salgada',
       available: true,
@@ -23,7 +22,7 @@ export class PizzaService {
       name: 'Pepperoni',
       description: 'Molho de tomate, mussarela, pepperoni',
       price: 28.0,
-      image: 'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Pepperoni',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Pepperoni',
       ingredients: ['Molho de tomate', 'Mussarela', 'Pepperoni'],
       category: 'salgada',
       available: true,
@@ -34,8 +33,7 @@ export class PizzaService {
       description:
         'Molho de tomate, mussarela, parmesão, gorgonzola, provolone',
       price: 32.0,
-      image:
-        'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Quatro+Queijos',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Quatro+Queijos',
       ingredients: [
         'Molho de tomate',
         'Mussarela',
@@ -51,7 +49,7 @@ export class PizzaService {
       name: 'Calabresa',
       description: 'Molho de tomate, mussarela, calabresa, cebola',
       price: 26.0,
-      image: 'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Calabresa',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Calabresa',
       ingredients: ['Molho de tomate', 'Mussarela', 'Calabresa', 'Cebola'],
       category: 'salgada',
       available: true,
@@ -61,8 +59,7 @@ export class PizzaService {
       name: 'Frango com Catupiry',
       description: 'Molho de tomate, mussarela, frango desfiado, catupiry',
       price: 30.0,
-      image:
-        'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Frango+Catupiry',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Frango+Catupiry',
       ingredients: [
         'Molho de tomate',
         'Mussarela',
@@ -78,8 +75,7 @@ export class PizzaService {
       description:
         'Molho de tomate, mussarela, presunto, ovos, cebola, azeitonas',
       price: 29.0,
-      image:
-        'https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Portuguesa',
+      image: 'https://placehold.co/300x200/ff6b6b/ffffff?text=Portuguesa',
       ingredients: [
         'Molho de tomate',
         'Mussarela',
@@ -96,7 +92,7 @@ export class PizzaService {
       name: 'Chocolate',
       description: 'Chocolate ao leite, morangos, chantilly',
       price: 35.0,
-      image: 'https://via.placeholder.com/300x200/ffd700/ffffff?text=Chocolate',
+      image: 'https://placehold.co/300x200/ffd700/ffffff?text=Chocolate',
       ingredients: ['Chocolate ao leite', 'Morangos', 'Chantilly'],
       category: 'doce',
       available: true,
@@ -106,8 +102,7 @@ export class PizzaService {
       name: 'Banana com Canela',
       description: 'Banana caramelizada, canela, açúcar mascavo',
       price: 33.0,
-      image:
-        'https://via.placeholder.com/300x200/ffd700/ffffff?text=Banana+Canela',
+      image: 'https://placehold.co/300x200/ffd700/ffffff?text=Banana+Canela',
       ingredients: ['Banana caramelizada', 'Canela', 'Açúcar mascavo'],
       category: 'doce',
       available: true,
